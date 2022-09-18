@@ -1,0 +1,70 @@
+*, *::before,
+*::after {
+    box-sizing: border-box;
+    margin: 0;
+}
+
+body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100vw;
+    height: 100vh;
+    font-family: Arial, Helvetica, sans-serif;
+    background-color: rgb(5, 16, 20);
+}
+
+.user-form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+    padding: 25px;
+    background-color: rgb(15, 46, 58);
+    width: 30%;
+    border-radius: 7px;
+}
+
+.user-form > .form-input {
+    display: flex;
+    flex-direction: column;
+}
+
+.form-input > label {
+    color: white;
+    margin-bottom: 5px;
+}
+
+.form-input > input {
+    border: none;
+    border-radius: 5px;
+    padding: 7px 0 7px 10px;
+    border: 2px solid transparent;
+    outline: none;
+}
+
+.form-input > input:invalid {
+    border: 2px solid transparent;
+    transition: 500ms;
+}
+
+.form-input > input:invalid.inval {
+    border: 2px solid red;
+}
+
+.form-input > input:valid {
+    border: 2px solid transparent;
+    transition: 500ms;
+}
+
+.form-input > input:valid.validate {
+    border: 2px solid green;
+}
+
+.user-form button {
+    border: none;
+    font-weight: bold;
+    padding: 10px 15px 10px 15px;
+    border-radius: 5px;
+    background-color: white;
+}
