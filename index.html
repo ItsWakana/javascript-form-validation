@@ -16,19 +16,19 @@
         </div>
         <div class="form-input">
             <label for="postcode">Postcode</label>
-            <input type="text" name="postcode" id="postcode">
+            <input type="text" name="postcode" id="postcode" pattern="^[A-Z]{1,2}\d[A-Z\d]? ?\d[A-Z]{2}$" placeholder="BH16 6PA" required>
         </div>
         <div class="form-input">
             <label for="country">Country</label>
-            <input type="text" name="country" id="country" placeholder="United Kingdom">
+            <input type="text" name="country" id="country" placeholder="United Kingdom" required>
         </div>
         <div class="form-input">
             <label for="password">Password</label>
-            <input type="password" name="password" id="password">
+            <input type="password" name="password" id="password" autocomplete="off" required>
         </div>
         <div class="form-input">
             <label for="password-confirm">Confirm password</label>
-            <input type="password" name="password-confirm" id="password-confirm">
+            <input type="password" name="password-confirm" id="password-confirm" autocomplete="off" required>
         </div>
         <button class="submit" id="submit" type="submit">Login</button>
     </form>
