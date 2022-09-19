@@ -2,14 +2,6 @@ import { inputElements } from "./Elements.js";
 
 const elements = inputElements();
 
-submit.addEventListener('click', (event) => {
-    event.preventDefault();
-    checkValidation.email(elements.email);
-    checkValidation.postcode(elements.postcode);
-    checkValidation.country(elements.country);
-    checkValidation.passwords(elements.password, elements.confirmPassword);
-});
-
 const checkValidation = {
 
     checkEmptyInput(element) {
@@ -60,18 +52,35 @@ const checkValidation = {
     },
 
     email(element) {
-        this.checkEmptyInput(element);
-        this.checkTypeMismatch(element);
+        element.addEventListener('input', () => {
+            this.checkEmptyInput(element);
+            this.checkTypeMismatch(element);
+        });
     },
     postcode(element) {
-        this.checkEmptyInput(element);
-        this.checkPatternMismatch(element);
+        element.addEventListener('input', () => {
+            this.checkEmptyInput(element);
+            this.checkPatternMismatch(element);
+        });
     },
     country(element) {
-        this.checkEmptyInput(element);
+        element.addEventListener('input', () => {
+            this.checkEmptyInput(element);
+        });
     },
     passwords(pass1, pass2) {
-        this.checkEmptyInput(pass1, pass2);
-        this.checkPasswordMatch(pass1, pass2);
+        pass1.addEventListener('input', () => {
+            this.checkEmptyInput(pass1);
+            this.checkPasswordMatch(pass1, pass2);
+        });
+        pass2.addEventListener('input', () => {
+            this.checkEmptyInput(pass1);
+            this.checkPasswordMatch(pass1, pass2);
+        });
     }
 }
+
+checkValidation.email(elements.email);
+checkValidation.postcode(elements.postcode);
+checkValidation.country(elements.country);
+checkValidation.passwords(elements.password, elements.confirmPassword);
