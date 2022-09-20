@@ -7,3 +7,5 @@ export const inputElements = () => {
 
     return { email, postcode, country, password, confirmPassword }
 }
+
+export const elements = inputElements();
