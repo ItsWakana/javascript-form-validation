@@ -1,20 +1,50 @@
-import { elements } from "./Elements.js";
+import { addIconToDOM, elements, removeIcon } from "./Elements.js";
 
 
 const emptyTypeChecker = () => {
+
     return {
-        checkEmptyInput: (element) => {
+        // checkEmptyInput: (element) => {
+        //     if (element.validity.valueMissing) {
+        //         removeIcon(element);
+        //         addIconToDOM('cross', element);
+        //         element.setCustomValidity('You must enter something');
+        //         element.reportValidity();
+        //         element.classList.add('inval');
+        //         return;
+        //     }
+        //     removeIcon(element);
+        //     addIconToDOM('tick', element);
+        //     element.classList.add('validate');
+        //     element.setCustomValidity('');
+        // },
+        // checkTypeMismatch: (element) => {
+            // if (element.validity.typeMismatch) {
+            //     removeIcon(element);
+            //     addIconToDOM('cross', element);
+            //     element.setCustomValidity('Please enter a valid email address');
+            //     element.reportValidity();
+            //     element.classList.add('inval');
+            //     return;
+            // }
+            // removeIcon(element);
+            // addIconToDOM('tick', element);
+            // element.classList.add('validate');
+            // element.setCustomValidity('');
+        // }
+        checkInputAndTypeMismatch: (element) => {
+            removeIcon(element);
+            addIconToDOM('tick', element);
             if (element.validity.valueMissing) {
+                removeIcon(element);
+                addIconToDOM('cross', element);
                 element.setCustomValidity('You must enter something');
                 element.reportValidity();
                 element.classList.add('inval');
-                return;
             }
-            element.classList.add('validate');
-            element.setCustomValidity('');
-        },
-        checkTypeMismatch: (element) => {
             if (element.validity.typeMismatch) {
+                removeIcon(element);
+                addIconToDOM('cross', element);
                 element.setCustomValidity('Please enter a valid email address');
                 element.reportValidity();
                 element.classList.add('inval');
@@ -27,14 +57,19 @@ const emptyTypeChecker = () => {
 }
 
 const patternChecker = () => {
+
     return {
         checkPatternMismatch: (element) => {
             if (element.validity.patternMismatch) {
+                removeIcon(element);
+                addIconToDOM('cross', element);
                 element.setCustomValidity('This is not a valid UK postcode');
                 element.reportValidity();
                 element.classList.add('inval');
                 return;
             }
+            removeIcon(element);
+            addIconToDOM('tick', element);
             element.classList.add('validate');
             element.setCustomValidity('');
         },
@@ -49,6 +84,7 @@ const patternAndTypeChecker = () => {
 }
 
 const typeAndPasswordMatch = () => {
+    
     return {
         ...emptyTypeChecker(),
         checkPasswordMatch: (pass1, pass2) => {
@@ -71,35 +107,27 @@ const typeAndPasswordMatch = () => {
 
 elements.email.addEventListener('input', () => {
     const val = emptyTypeChecker();
-    val.checkEmptyInput(elements.email);
-    val.checkTypeMismatch(elements.email);
+    val.checkInputAndTypeMismatch(elements.email);
 });
 
 elements.postcode.addEventListener('input', () => {
     const val = patternAndTypeChecker();
-    val.checkEmptyInput(elements.postcode);
-    val.checkTypeMismatch(elements.postcode);
+    val.checkInputAndTypeMismatch(elements.postcode);
     val.checkPatternMismatch(elements.postcode);
 });
 
 elements.country.addEventListener('input', () => {
     const val = emptyTypeChecker();
-    val.checkEmptyInput(elements.country);
-    val.checkTypeMismatch(elements.country);
-
+    val.checkInputAndTypeMismatch(elements.country);
 });
 
 elements.password.addEventListener('input', () => {
     const val = emptyTypeChecker();
-    val.checkEmptyInput(elements.password);
-    val.checkTypeMismatch(elements.password);
-
+    val.checkInputAndTypeMismatch(elements.password);
 });
 
 elements.confirmPassword.addEventListener('input', () => {
     const val = typeAndPasswordMatch();
-    val.checkEmptyInput(elements.password);
-    val.checkTypeMismatch(elements.password);
+    val.checkInputAndTypeMismatch(elements.password);
     val.checkPasswordMatch(elements.password, elements.confirmPassword);
-
 });

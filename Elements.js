@@ -9,3 +9,28 @@ export const inputElements = () => {
 }
 
 export const elements = inputElements();
+
+export const addIconToDOM = (tick, element) => {
+
+    const inputParent = element.closest('.input-svg-container');
+    if (tick === 'tick') {
+        const tick = new Image();
+        tick.src = './assets/tick.svg'; tick.className = 'icon-tick';
+        inputParent.appendChild(tick);
+    } else {
+        const cross = new Image();
+        cross.src = './assets/cross.svg'; cross.className = 'icon-cross';
+        inputParent.appendChild(cross);
+    }
+}
+
+export const removeIcon = (element) => {
+
+    const parent = element.closest('.input-svg-container');
+    const children = [...parent.children];
+    children.forEach(child => {
+        if (child.className === 'icon-cross' || child.className === 'icon-tick') {
+            child.remove();
+        }
+    });
+}

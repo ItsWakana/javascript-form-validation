@@ -30,12 +30,12 @@ body {
     flex-direction: column;
 }
 
-.form-input > label {
+.form-input label {
     color: white;
     margin-bottom: 5px;
 }
 
-.form-input > input {
+.form-input input {
     border: none;
     border-radius: 5px;
     padding: 7px 0 7px 10px;
@@ -43,22 +43,26 @@ body {
     outline: none;
 }
 
-.form-input > input:invalid {
+.form-input input:invalid {
     border: 2px solid transparent;
     transition: 500ms;
 }
 
-.form-input > input:invalid.inval {
+.form-input input:invalid.inval {
     border: 2px solid red;
 }
 
-.form-input > input:valid {
+.form-input input:valid {
     border: 2px solid transparent;
     transition: 500ms;
 }
 
-.form-input > input:valid.validate {
-    border: 2px solid green;
+.form-input input:valid.validate {
+    border: 2px solid #216079;
+}
+
+.form-input {
+    position: relative;
 }
 
 .user-form button {
@@ -67,4 +71,17 @@ body {
     padding: 10px 15px 10px 15px;
     border-radius: 5px;
     background-color: white;
+}
+
+.user-form .icon-cross,
+.user-form .icon-tick {
+    position: absolute;
+    right: -35px;
+    bottom:5px;
+    width: 27px;
+    filter: invert(29%) sepia(7%) saturate(4845%) hue-rotate(152deg) brightness(98%) contrast(82%);
+}
+
+.input-svg-container {
+    display: flex;
 }
