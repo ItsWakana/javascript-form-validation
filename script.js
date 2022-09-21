@@ -1,37 +1,10 @@
 import { addIconToDOM, elements, removeIcon } from "./Elements.js";
 
-
+//for validating if the input is empty or the type of input is wrong
 const emptyTypeChecker = () => {
 
     return {
-        // checkEmptyInput: (element) => {
-        //     if (element.validity.valueMissing) {
-        //         removeIcon(element);
-        //         addIconToDOM('cross', element);
-        //         element.setCustomValidity('You must enter something');
-        //         element.reportValidity();
-        //         element.classList.add('inval');
-        //         return;
-        //     }
-        //     removeIcon(element);
-        //     addIconToDOM('tick', element);
-        //     element.classList.add('validate');
-        //     element.setCustomValidity('');
-        // },
-        // checkTypeMismatch: (element) => {
-            // if (element.validity.typeMismatch) {
-            //     removeIcon(element);
-            //     addIconToDOM('cross', element);
-            //     element.setCustomValidity('Please enter a valid email address');
-            //     element.reportValidity();
-            //     element.classList.add('inval');
-            //     return;
-            // }
-            // removeIcon(element);
-            // addIconToDOM('tick', element);
-            // element.classList.add('validate');
-            // element.setCustomValidity('');
-        // }
+
         checkInputAndTypeMismatch: (element) => {
             removeIcon(element);
             addIconToDOM('tick', element);
@@ -55,7 +28,6 @@ const emptyTypeChecker = () => {
         }
     }
 }
-
 const patternChecker = () => {
 
     return {
@@ -68,33 +40,38 @@ const patternChecker = () => {
                 element.classList.add('inval');
                 return;
             }
-            removeIcon(element);
-            addIconToDOM('tick', element);
             element.classList.add('validate');
             element.setCustomValidity('');
         },
     }
 }
-
+//spreading our pattern and type checker functionality to create this, for use with our postcode validation
 const patternAndTypeChecker = () => {
     return {
         ...patternChecker(),
         ...emptyTypeChecker()
     }
 }
-
+///spreading out our type check and also password matching validator for both password fields
 const typeAndPasswordMatch = () => {
     
     return {
         ...emptyTypeChecker(),
         checkPasswordMatch: (pass1, pass2) => {
+            removeIcon(pass2);
+            addIconToDOM('tick', pass2);
+
+            const arr = [pass1, pass2];
+
             if (pass1.value !== pass2.value) {
-                pass1.setCustomValidity('Passwords do not match');
-                pass2.setCustomValidity('Passwords do not match');
-                pass1.reportValidity();
-                pass2.reportValidity();
-                pass1.classList.add('inval');
-                pass2.classList.add('inval');
+
+                arr.forEach(item => {
+                    removeIcon(item);
+                    item.setCustomValidity('Passwords do not match');
+                    item.reportValidity();
+                    item.classList.add('inval');
+                });
+                addIconToDOM('cross', pass2);
                 return;
             }
             pass1.classList.add('validate');
@@ -104,7 +81,7 @@ const typeAndPasswordMatch = () => {
         },
     }
 }
-
+//event listeners for our inputs which trigger when the user types, it activates the validation functionality
 elements.email.addEventListener('input', () => {
     const val = emptyTypeChecker();
     val.checkInputAndTypeMismatch(elements.email);
