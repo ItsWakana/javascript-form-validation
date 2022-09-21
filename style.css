@@ -58,7 +58,7 @@ body {
 }
 
 .form-input input:valid.validate {
-    border: 2px solid #216079;
+    border: 2px solid #3692b6;
 }
 
 .form-input {
@@ -79,7 +79,7 @@ body {
     right: -35px;
     bottom:5px;
     width: 27px;
-    filter: invert(29%) sepia(7%) saturate(4845%) hue-rotate(152deg) brightness(98%) contrast(82%);
+    filter: invert(52%) sepia(60%) saturate(505%) hue-rotate(151deg) brightness(87%) contrast(85%);
 }
 
 .input-svg-container {
