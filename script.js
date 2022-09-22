@@ -1,5 +1,7 @@
 import { addIconToDOM, elements, removeIcon } from "./Elements.js";
 
+const submit = document.getElementById('submit');
+
 //for validating if the input is empty or the type of input is wrong
 const emptyTypeChecker = () => {
 
@@ -8,16 +10,20 @@ const emptyTypeChecker = () => {
         checkInputAndTypeMismatch: (element) => {
             removeIcon(element);
             addIconToDOM('tick', element);
+            element.dataset.validated = 'true';
             if (element.validity.valueMissing) {
                 removeIcon(element);
                 addIconToDOM('cross', element);
+                element.dataset.validated = 'false';
                 element.setCustomValidity('You must enter something');
                 element.reportValidity();
                 element.classList.add('inval');
+                return;
             }
             if (element.validity.typeMismatch) {
                 removeIcon(element);
                 addIconToDOM('cross', element);
+                element.dataset.validated = 'false';
                 element.setCustomValidity('Please enter a valid email address');
                 element.reportValidity();
                 element.classList.add('inval');
@@ -32,9 +38,11 @@ const patternChecker = () => {
 
     return {
         checkPatternMismatch: (element) => {
+            element.dataset.validated = 'true';
             if (element.validity.patternMismatch) {
                 removeIcon(element);
                 addIconToDOM('cross', element);
+                element.dataset.validated = 'false';
                 element.setCustomValidity('This is not a valid UK postcode');
                 element.reportValidity();
                 element.classList.add('inval');
@@ -60,6 +68,7 @@ const typeAndPasswordMatch = () => {
         checkPasswordMatch: (pass1, pass2) => {
             removeIcon(pass2);
             addIconToDOM('tick', pass2);
+            pass2.dataset.validated = 'true';
 
             const arr = [pass1, pass2];
 
@@ -70,6 +79,7 @@ const typeAndPasswordMatch = () => {
                     item.setCustomValidity('Passwords do not match');
                     item.reportValidity();
                     item.classList.add('inval');
+                    item.dataset.validated = 'false';
                 });
                 addIconToDOM('cross', pass2);
                 return;
@@ -107,4 +117,9 @@ elements.confirmPassword.addEventListener('input', () => {
     const val = typeAndPasswordMatch();
     val.checkInputAndTypeMismatch(elements.password);
     val.checkPasswordMatch(elements.password, elements.confirmPassword);
+});
+
+submit.addEventListener('click', (e) => {
+    e.preventDefault();
+    elements.checkFullValidation();
 });

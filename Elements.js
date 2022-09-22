@@ -3,9 +3,20 @@ export const inputElements = () => {
     const postcode = document.getElementById('postcode');
     const country = document.getElementById('country');
     const password = document.getElementById('password');
-    const confirmPassword = document.getElementById('password-confirm');    
+    const confirmPassword = document.getElementById('password-confirm');  
+    
+    return { email, postcode, country, password, confirmPassword,
+    checkFullValidation: () => {
+        const elements = [...document.querySelectorAll('[data-validated]')];
+        const validated = elements.every(element => {
+            return element.dataset.validated === 'true';
+        });
 
-    return { email, postcode, country, password, confirmPassword }
+        if (validated === true) {
+            alert('Submitted! High five!');
+        }
+
+    } }
 }
 
 export const elements = inputElements();
