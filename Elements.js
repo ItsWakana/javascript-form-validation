@@ -6,17 +6,18 @@ export const inputElements = () => {
     const confirmPassword = document.getElementById('password-confirm');  
     
     return { email, postcode, country, password, confirmPassword,
-    checkFullValidation: () => {
-        const elements = [...document.querySelectorAll('[data-validated]')];
-        const validated = elements.every(element => {
-            return element.dataset.validated === 'true';
-        });
+        checkFullValidation: () => {
+            const elements = [...document.querySelectorAll('[data-validated]')];
+            const validated = elements.every(element => {
+                return element.dataset.validated === 'true';
+            });
 
-        if (validated === true) {
-            alert('Submitted! High five!');
+            if (validated === true) {
+                alert('Submitted! High five!');
+            }
+
         }
-
-    } }
+    }
 }
 
 export const elements = inputElements();
